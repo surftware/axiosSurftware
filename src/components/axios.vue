@@ -2,6 +2,8 @@
     <div v-if="response" class="content">
         <p>User ID: {{ response.userId }}</p>
         <p>Title: {{ response.title }}</p>
+        <p>ID: {{ response.body }}</p>
+
     </div>
 </template>
 
@@ -14,10 +16,19 @@
             msg2: String,
         },
         data: () => ({
-            result: null
+            response: null
         }),
         created() {
-            axios.get("https://jsonplaceholder.typicode.com/todos/1").then((response) => {
+
+            let post = {
+                title: 'foo',
+                body: 'bar',
+                userId: 1
+            };
+            axios.put("https://jsonplaceholder.typicode.com/posts/1", post).then((response) => {
+                console.log(response);
+            });
+            axios.get("https://jsonplaceholder.typicode.com/posts/1").then((response) => {
                     console.log(response.data);
                     this.response = response.data;
                 })
